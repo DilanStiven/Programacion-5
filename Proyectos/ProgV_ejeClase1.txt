@@ -1,0 +1,95 @@
+
+router.post("/", createMateria);
+
+
+
+export async function createMateria(request, response, next) {
+  try {
+    const payload = validateCreateMateria(request.body);
+    const materia = await materiasService.createMateria(request.user.id, payload);
+    return sendSuccess(response, materia, 201);
+  } catch (error) {
+    return next(error);
+  }
+}
+
+
+
+
+export async function createMateria(userId, materia) {
+  await ensureUniqueFields(userId, materia);
+  return materiasRepository.createMateria(userId, materia);
+}
+
+
+
+
+export async function createMateria(userId, materia) {
+  const [result] = await pool.execute(
+    `INSERT INTO materia (id_usuario, nombre, codigo, color, creditos, activa)
+     VALUES (?, ?, ?, ?, ?, ?)`,
+    [
+      userId,
+      materia.nombre,
+      materia.codigo,
+      materia.color,
+      materia.creditos,
+      materia.activa ? 1 : 0
+    ]
+  );
+
+  return findByIdAndUserId(result.insertId, userId);
+}
+
+
+
+async function ensureUniqueFields(userId, materia, excludeId) {
+  if (materia.codigo) {
+    const duplicatedCode = await materiasRepository.existsByCode(userId, materia.codigo, excludeId);
+
+    if (duplicatedCode) {
+      throw new HttpError(409, "DUPLICATE_CODE", "Ya existe una materia con ese código.");
+    }
+  }
+
+  if (materia.nombre) {
+    const duplicatedName = await materiasRepository.existsByName(userId, materia.nombre, excludeId);
+
+    if (duplicatedName) {
+      throw new HttpError(409, "DUPLICATE_NAME", "Ya existe una materia con ese nombre.");
+    }
+  }
+}
+
+
+
+
+export async function existsByCode(userId, codigo, excludeId) {
+  const params = [userId, codigo];
+  let sql = "SELECT 1 FROM materia WHERE id_usuario = ? AND codigo = ?";
+
+  if (excludeId) {
+    sql += " AND id_materia <> ?";
+    params.push(excludeId);
+  }
+
+  sql += " LIMIT 1";
+
+  const [rows] = await pool.execute(sql, params);
+  return rows.length > 0;
+}
+
+export async function existsByName(userId, nombre, excludeId) {
+  const params = [userId, nombre];
+  let sql = "SELECT 1 FROM materia WHERE id_usuario = ? AND nombre = ?";
+
+  if (excludeId) {
+    sql += " AND id_materia <> ?";
+    params.push(excludeId);
+  }
+
+  sql += " LIMIT 1";
+
+  const [rows] = await pool.execute(sql, params);
+  return rows.length > 0;
+}

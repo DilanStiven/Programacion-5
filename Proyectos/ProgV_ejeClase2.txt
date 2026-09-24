@@ -1,0 +1,119 @@
+
+router.put("/:id", replaceMateria);
+router.patch("/:id", updateMateria);
+router.delete("/:id", deleteMateria);
+
+
+
+
+export async function replaceMateria(request, response, next) {
+  try {
+    const id = validateMateriaId(request.params.id);
+    const payload = validateCreateMateria(request.body);
+    const materia = await materiasService.replaceMateria(id, request.user.id, payload);
+    return sendSuccess(response, materia);
+  } catch (error) {
+    return next(error);
+  }
+}
+
+export async function updateMateria(request, response, next) {
+  try {
+    const id = validateMateriaId(request.params.id);
+    const payload = validatePatchMateria(request.body);
+    const materia = await materiasService.updateMateria(id, request.user.id, payload);
+    return sendSuccess(response, materia);
+  } catch (error) {
+    return next(error);
+  }
+}
+
+export async function deleteMateria(request, response, next) {
+  try {
+    const id = validateMateriaId(request.params.id);
+    await materiasService.removeMateria(id, request.user.id);
+    return sendNoContent(response);
+  } catch (error) {
+    return next(error);
+  }
+}
+
+
+
+
+
+export async function replaceMateria(id, userId, materia) {
+  await getMateriaById(id, userId);
+  await ensureUniqueFields(userId, materia, id);
+  return materiasRepository.updateMateria(id, userId, materia);
+}
+
+export async function updateMateria(id, userId, partialMateria) {
+  await getMateriaById(id, userId);
+  await ensureUniqueFields(userId, partialMateria, id);
+  return materiasRepository.patchMateria(id, userId, partialMateria);
+}
+
+export async function removeMateria(id, userId) {
+  await getMateriaById(id, userId);
+  await materiasRepository.deleteMateria(id, userId);
+}
+
+
+
+
+export async function patchMateria(id, userId, partialMateria) {
+  const fields = [];
+  const params = [];
+
+  if (partialMateria.nombre !== undefined) {
+    fields.push("nombre = ?");
+    params.push(partialMateria.nombre);
+  }
+
+  if (partialMateria.codigo !== undefined) {
+    fields.push("codigo = ?");
+    params.push(partialMateria.codigo);
+  }
+
+  if (partialMateria.color !== undefined) {
+    fields.push("color = ?");
+    params.push(partialMateria.color);
+  }
+
+  if (partialMateria.creditos !== undefined) {
+    fields.push("creditos = ?");
+    params.push(partialMateria.creditos);
+  }
+
+  if (partialMateria.activa !== undefined) {
+    fields.push("activa = ?");
+    params.push(partialMateria.activa ? 1 : 0);
+  }
+
+  if (fields.length === 0) {
+    return findByIdAndUserId(id, userId);
+  }
+
+  params.push(id, userId);
+
+  await pool.execute(
+    `UPDATE materia
+     SET ${fields.join(", ")}
+     WHERE id_materia = ? AND id_usuario = ?`,
+    params
+  );
+
+  return findByIdAndUserId(id, userId);
+}
+
+export async function deleteMateria(id, userId) {
+  const [result] = await pool.execute(
+    "DELETE FROM materia WHERE id_materia = ? AND id_usuario = ?",
+    [id, userId]
+  );
+
+  return result.affectedRows > 0;
+}
+
+
