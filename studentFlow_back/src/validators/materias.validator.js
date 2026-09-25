@@ -50,6 +50,15 @@ function validateColor(color) {
   }
 }
 
+/**
+ * Valida y normaliza los parámetros de consulta para listar materias.
+ *
+ * @function validateMateriaListQuery
+ * @param {Object} query - Query params recibidos en la petición.
+ * @returns {Object} Objeto normalizado con filtros, paginación y orden.
+ * @throws {HttpError} Código 422 si algún parámetro es inválido.
+ */
+
 export function validateMateriaListQuery(query) {
   const page = Number(query.page ?? 1);
   const limit = Number(query.limit ?? 20);
@@ -72,6 +81,15 @@ export function validateMateriaListQuery(query) {
   };
 }
 
+/**
+ * Valida y convierte el identificador de una materia.
+ *
+ * @function validateMateriaId
+ * @param {string|number} id - ID recibido por la ruta.
+ * @returns {number} El valor numérico validado del identificador.
+ * @throws {HttpError} Código 400 si el identificador no es válido.
+ */
+
 export function validateMateriaId(id) {
   const parsedId = Number(id);
 
@@ -81,6 +99,15 @@ export function validateMateriaId(id) {
 
   return parsedId;
 }
+
+/**
+ * Valida el cuerpo recibido para crear una materia.
+ *
+ * @function validateCreateMateria
+ * @param {Object} body - Datos enviados en el cuerpo de la petición.
+ * @returns {Object} Objeto validado con los campos de la materia.
+ * @throws {HttpError} Código 422 si alguno de los campos no cumple la validación.
+ */
 
 export function validateCreateMateria(body) {
   const nombre = normalizeString(body.nombre, "nombre");
@@ -99,6 +126,15 @@ export function validateCreateMateria(body) {
     activa
   };
 }
+
+/**
+ * Valida el cuerpo recibido para actualizar parcialmente una materia.
+ *
+ * @function validatePatchMateria
+ * @param {Object} body - Datos enviados en el cuerpo de la petición.
+ * @returns {Object} Objeto con los campos válidos para actualizar.
+ * @throws {HttpError} Código 422 si no se envía contenido válido o si algún valor es inválido.
+ */
 
 export function validatePatchMateria(body) {
   const payload = {};
