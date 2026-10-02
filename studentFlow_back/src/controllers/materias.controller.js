@@ -140,6 +140,17 @@ export async function getMateriasTareas(request, response, next) {
   }
 }
 
+export async function listEventosByMateria(request, response, next) {
+  try {
+    const id = validateMateriaId(request.params.id);
+    const userId = request.user.id;
+    const eventos = await materiasService.listEventosByMateria(id, userId);
+    return sendSuccess(response, eventos);
+  } catch (error) {
+    return next(error);
+  }
+}
+
 /**
  * Controlador para eliminar una materia.
  *

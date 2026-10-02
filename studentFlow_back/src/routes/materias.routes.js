@@ -5,6 +5,7 @@ import {
     listMaterias,
     getMateriaById,
     getMateriasTareas,
+    listEventosByMateria,
     createMateria,
     replaceMateria,
     updateMateria,
@@ -18,6 +19,7 @@ const router = Router();
 
 router.get("/", listMaterias);
 router.get("/:id/tareas", getMateriasTareas);
+router.get("/:id/eventos", listEventosByMateria);
 router.get("/:id", getMateriaById);
 router.post("/", createMateria);
 router.put("/:id", replaceMateria);

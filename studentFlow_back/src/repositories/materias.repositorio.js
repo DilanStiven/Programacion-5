@@ -309,6 +309,28 @@ export async function findTareasByMateriaIdAndUserId(materiaId, userId) {
   return rows;
 }
 
+export async function findEventosByMateriaAndUserId(id, userId) {
+  const [rows] = await pool.execute(
+    `SELECT
+       e.id_evento AS id,
+       e.id_materia AS materiaId,
+       e.titulo,
+       e.descripcion,
+       e.fecha,
+       e.hora_inicio AS horaInicio,
+       e.hora_fin AS horaFin,
+       e.tipo,
+       e.created_at AS createdAt,
+       e.updated_at AS updatedAt
+     FROM evento e
+     INNER JOIN materia m ON m.id_materia = e.id_materia
+     WHERE m.id_materia = ? AND m.id_usuario = ?`,
+    [id, userId]
+  );
+
+  return rows;
+}
+
 export async function deleteMateria(id, userId) {
   const [result] = await pool.execute(
     "DELETE FROM materia WHERE id_materia = ? AND id_usuario = ?",

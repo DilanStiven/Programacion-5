@@ -158,6 +158,11 @@ export async function listTareasByMateriaId(id, userId) {
   return materiasRepository.findTareasByMateriaIdAndUserId(id, userId);
 }
 
+export async function listEventosByMateria(id, userId) {
+  await getMateriaById(id, userId);
+  return materiasRepository.findEventosByMateriaAndUserId(id, userId);
+}
+
 /**
  * Elimina una materia del usuario autenticado.
  *
