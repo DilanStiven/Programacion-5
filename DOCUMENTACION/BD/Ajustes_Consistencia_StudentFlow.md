@@ -1,8 +1,8 @@
 # Ajustes de consistencia para StudentFlow
 
-Este documento acompaña el script [`03_studentflow_ajustes_consistencia.sql`](/D:/Downloads/camacho/2026B/programacionV/docs/BD/03_studentflow_ajustes_consistencia.sql).
+Este documento acompaña el script [`03_studentflow_ajustes_consistencia.sql`](./03_studentflow_ajustes_consistencia.sql).
 
-Tambien puedes usar el script [`04_verificacion_ajustes_studentflow.sql`](/D:/Downloads/camacho/2026B/programacionV/docs/BD/04_verificacion_ajustes_studentflow.sql) para comprobar que la estructura y los datos quedaron consistentes despues de aplicar los cambios.
+Tambien puedes usar el script [`04_verificacion_ajustes_studentflow.sql`](./04_verificacion_ajustes_studentflow.sql) para comprobar que la estructura y los datos quedaron consistentes despues de aplicar los cambios.
 
 ## Objetivo
 
@@ -67,7 +67,7 @@ Con eso se evita mezclar responsables de otro propietario cuando el sistema evol
 1. Abrir phpMyAdmin.
 2. Seleccionar la base `studentflow`.
 3. Ir a la pestaña `SQL`.
-4. Pegar el contenido de [`03_studentflow_ajustes_consistencia.sql`](/D:/Downloads/camacho/2026B/programacionV/docs/BD/03_studentflow_ajustes_consistencia.sql).
+4. Pegar el contenido de [`03_studentflow_ajustes_consistencia.sql`](./03_studentflow_ajustes_consistencia.sql).
 5. Ejecutarlo completo una sola vez.
 
 ## Si ya te fallo una vez
@@ -100,7 +100,7 @@ Despues de ejecutarlo:
 
 ## Verificacion posterior
 
-Despues de aplicar el ajuste, ejecuta [`04_verificacion_ajustes_studentflow.sql`](/D:/Downloads/camacho/2026B/programacionV/docs/BD/04_verificacion_ajustes_studentflow.sql).
+Despues de aplicar el ajuste, ejecuta [`04_verificacion_ajustes_studentflow.sql`](./04_verificacion_ajustes_studentflow.sql).
 
 Ese script no modifica datos. Solo:
 

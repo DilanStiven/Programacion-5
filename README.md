@@ -1,56 +1,84 @@
 # StudentFlow - Programación
 
-Repositorio del proyecto de clase.
+Repositorio de trabajo del proyecto de clase StudentFlow. Actualmente incluye el backend, los archivos de diseño de la base de datos, guías de trabajo y materiales del curso.
 
-- `studentFlow_back/`: código fuente de la API REST (Node.js + Express + MySQL), configuración de ejecución y backend funcional.
-- `BD y archivos/`: entregables de análisis, diseño y documentación del proyecto. La organización de esta carpeta se detalla abajo.
-- `Proyectos/`: ejercicios de clase y PRD.
-
-## Estructura de `BD y archivos/`
+## Organización del repositorio
 
 ```text
-BD y archivos/
-├── BD/
-│   ├── BDMysql.png
-│   ├── 01_studentflow_schema_mysql.sql
-│   ├── 02_studentflow_seed_inicial.sql
-│   ├── 03_studentflow_ajustes_consistencia.sql
-│   ├── 04_verificacion_ajustes_studentflow.sql
-│   └── documentos de justificación y verificación del modelo
-├── documentacion materias/
-│   └── Endpoint_GET_Eventos_por_Materia.md
-├── 02_Explicacion_archivos_generales.md
-├── Detalle_Primeros_7_Pasos_Fase1.md
-├── Diagrama_Flujo_Peticion_Backend.md
-├── Fase1_Preparacion_Entorno_Desarrollo.md
-└── functionEnpointGetEventosMaterias.md
+.
+├── Guias/
+│   ├── documentacion materias/
+│   └── guías de configuración, arquitectura y endpoints
+├── BD y archivos/
+│   └── BD/
+│       ├── diagrama y documentación del modelo
+│       └── scripts SQL de esquema, datos, ajustes y verificación
+├── Proyectos/
+│   ├── PRD de StudentFlow
+│   └── ejercicios de clase
+└── studentFlow_back/
+    └── src/
+        ├── config/
+        ├── controllers/
+        ├── middlewares/
+        ├── repositories/
+        ├── routes/
+        ├── services/
+        ├── utils/
+        └── validators/
 ```
 
-- **`BD/`** contiene el diagrama entidad-relación, el esquema SQL, los datos de ejemplo, los ajustes de consistencia y la documentación específica de la base de datos.
-- **`documentacion materias/`** contiene documentación funcional de los endpoints relacionados con materias; actualmente incluye la consulta GET de eventos por materia.
-- **`Fase1_Preparacion_Entorno_Desarrollo.md`** y **`Detalle_Primeros_7_Pasos_Fase1.md`** documentan la preparación y los pasos iniciales de trabajo.
-- **`Diagrama_Flujo_Peticion_Backend.md`** explica el recorrido de una petición por el backend; **`02_Explicacion_archivos_generales.md`** describe archivos y componentes generales de la API.
-- **`functionEnpointGetEventosMaterias.md`** contiene el procedimiento solicitado para el endpoint GET de eventos por materia. Se mantiene directamente en `BD y archivos/`, no dentro de `documentacion materias/`.
-- **`studentFlow_back/`** es el proyecto ejecutable. Sus rutas, controladores, servicios y repositorios contienen la implementación; la carpeta de documentación describe el trabajo, pero no reemplaza el código.
+### Guías
+
+- [Preparación del entorno](Guias/Fase1_Preparacion_Entorno_Desarrollo.md) y [detalle de los primeros siete pasos](Guias/Detalle_Primeros_7_Pasos_Fase1.md).
+- [Flujo de una petición al backend](Guias/Diagrama_Flujo_Peticion_Backend.md) y [explicación de archivos generales](Guias/02_Explicacion_archivos_generales.md).
+- [Implementación de eventos por materia](Guias/functionEnpointGetEventosMaterias.md) y [documentación del endpoint](Guias/documentacion%20materias/Endpoint_GET_Eventos_por_Materia.md).
+
+### Base de datos y materiales de clase
+
+- `BD y archivos/BD/` reúne el diagrama, la justificación y documentación del modelo, además de los scripts SQL para crear el esquema, cargar datos iniciales, aplicar ajustes de consistencia y verificarlos.
+- `Proyectos/` conserva el PRD de StudentFlow y los ejercicios de clase.
+
+## Avance hasta ahora
+
+### Backend
+
+- Backend Node.js con Express y MySQL, organizado en rutas, controladores, servicios, repositorios, validadores y middlewares.
+- Endpoint de salud disponible en `/api/v1/health`.
+- Operaciones para listar, consultar, crear, reemplazar, actualizar y eliminar materias bajo `/api/v1/materias`.
+- Listado de materias con filtros y paginación; consultas de tareas y eventos por materia.
+- Validación de entradas y manejo centralizado de errores.
+- La asignación de usuario todavía usa un middleware temporal que establece el ID `1`; falta integrar autenticación real.
+
+### Base de datos y documentación
+
+- Esquema relacional MySQL y datos iniciales preparados.
+- Scripts para aplicar ajustes de consistencia y revisar constraints y relaciones.
+- Guías de configuración, arquitectura y endpoints reunidas en `Guias/`.
+- El PRD documenta los requisitos del frontend; esta estructura contiene actualmente el backend y los materiales del proyecto.
 
 ## Endpoints de materias (`/api/v1/materias`)
 
 | Método | Ruta | Función |
 |--------|------|---------|
-| GET | `/` | listMaterias |
-| GET | `/:id/tareas` | getMateriasTareas |
-| GET | `/:id/eventos` | listEventosByMateria |
-| GET | `/:id` | getMateriaById |
-| POST | `/` | createMateria |
-| PUT | `/:id` | replaceMateria |
-| PATCH | `/:id` | updateMateria |
-| DELETE | `/:id` | deleteMateria |
+| GET | `/` | Listar materias |
+| GET | `/:id/tareas` | Consultar tareas de una materia |
+| GET | `/:id/eventos` | Consultar eventos de una materia |
+| GET | `/:id` | Consultar una materia |
+| POST | `/` | Crear una materia |
+| PUT | `/:id` | Reemplazar una materia |
+| PATCH | `/:id` | Actualizar parcialmente una materia |
+| DELETE | `/:id` | Eliminar una materia |
 
-## Cómo correrlo
+## Cómo ejecutar el backend
 
-```bash
-cd studentFlow_back
+Requisitos: Node.js 18 o superior y MySQL en ejecución.
+
+```powershell
+Set-Location studentFlow_back
 npm install
-cp .env.example .env   # y completar DB_PASSWORD
+Copy-Item .env.example .env  # Solo si todavía no existe .env
 npm run dev
 ```
+
+Configura las variables de conexión a MySQL en `.env` antes de iniciar el servidor. No compartas ni subas ese archivo; usa `.env.example` como plantilla.

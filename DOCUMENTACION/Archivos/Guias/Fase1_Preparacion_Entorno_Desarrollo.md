@@ -1,6 +1,6 @@
 # Fase 1 – Preparación del entorno de desarrollo
 
-Este documento corresponde a la preparación inicial del backend de **StudentFlow** en el directorio [studentFlow_back](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back).
+Este documento corresponde a la preparación inicial del backend de **StudentFlow** en el directorio [studentFlow_back](../studentFlow_back).
 
 ## Segmento 1: Pasos para la creación
 
@@ -25,7 +25,7 @@ Consiste en definir una carpeta exclusiva para el servidor, separada del fronten
 
 En este proyecto se usa:
 
-- [studentFlow_back](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back)
+- [studentFlow_back](../studentFlow_back)
 
 Esto sirve para mantener aislado el código del backend, sus dependencias, su configuración y sus scripts.
 
@@ -90,7 +90,7 @@ Consiste en definir los valores externos que el proyecto necesita para ejecutars
 
 Se dejó un archivo de ejemplo:
 
-- [`.env.example`](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/.env.example)
+- [`.env.example`](../studentFlow_back/.env.example)
 
 Incluye variables como:
 
@@ -109,7 +109,7 @@ Consiste en preparar el módulo que abrirá la conexión del backend con la base
 
 Se creó en:
 
-- [database.js](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/src/config/database.js)
+- [database.js](../studentFlow_back/src/config/database.js)
 
 Esto sirve para centralizar la conexión, reutilizarla en el resto del proyecto y hacer una verificación simple del estado de la base.
 
@@ -119,7 +119,7 @@ Consiste en construir la instancia principal de la aplicación HTTP.
 
 Se creó en:
 
-- [app.js](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/src/app.js)
+- [app.js](../studentFlow_back/src/app.js)
 
 Esto sirve para registrar middlewares, rutas y comportamiento global del backend.
 
@@ -129,8 +129,8 @@ Consiste en definir una ruta mínima que permita comprobar que el backend respon
 
 Archivos relacionados:
 
-- [health.routes.js](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/src/routes/health.routes.js)
-- [health.controller.js](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/src/controllers/health.controller.js)
+- [health.routes.js](../studentFlow_back/src/routes/health.routes.js)
+- [health.controller.js](../studentFlow_back/src/controllers/health.controller.js)
 
 Esto sirve para validar rápidamente que el backend está vivo antes de implementar módulos reales como materias o tareas.
 
@@ -140,7 +140,7 @@ Consiste en definir una respuesta controlada cuando una ruta no existe o cuando 
 
 Se creó en:
 
-- [error.middleware.js](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/src/middlewares/error.middleware.js)
+- [error.middleware.js](../studentFlow_back/src/middlewares/error.middleware.js)
 
 Esto sirve para que el backend no responda con errores desordenados y desde el inicio mantenga una estructura consistente de respuesta.
 
@@ -150,7 +150,7 @@ Consiste en dejar instrucciones mínimas para que cualquier persona pueda entend
 
 Se creó en:
 
-- [README.md](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/README.md)
+- [README.md](../studentFlow_back/src/README.md)
 
 Esto sirve para que el proyecto no dependa solo de memoria oral o improvisación técnica.
 

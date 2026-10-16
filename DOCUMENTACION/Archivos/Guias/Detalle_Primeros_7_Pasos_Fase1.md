@@ -1,6 +1,6 @@
 # Detalle de los primeros 7 pasos de la Fase 1
 
-Este documento complementa [Fase1_Preparacion_Entorno_Desarrollo.md](/D:/Downloads/camacho/2026B/programacionV/desarrollo_fases/fase1/Fase1_Preparacion_Entorno_Desarrollo.md) y desarrolla con más detalle los **7 primeros pasos** del:
+Este documento complementa [Fase1_Preparacion_Entorno_Desarrollo.md](Fase1_Preparacion_Entorno_Desarrollo.md) y desarrolla con más detalle los **7 primeros pasos** del:
 
 - `Segmento 1: Pasos para la creación`
 
@@ -16,7 +16,7 @@ Se debe crear una carpeta exclusiva para el backend, separada de cualquier estru
 
 En este proyecto el directorio usado es:
 
-- [studentFlow_back](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back)
+- [studentFlow_back](../studentFlow_back)
 
 ### Acciones concretas
 
@@ -46,7 +46,7 @@ Se debe preparar la carpeta del backend para que funcione como proyecto Node.js.
 
 ### Acciones concretas
 
-1. Abrir terminal dentro de [studentFlow_back](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back).
+1. Abrir terminal dentro de [studentFlow_back](../studentFlow_back).
 2. Ejecutar el comando de inicialización de Node.js.
 3. Confirmar que se generó `package.json`.
 4. Definir que el proyecto tendrá un punto de entrada y scripts de ejecución.
@@ -54,7 +54,7 @@ Se debe preparar la carpeta del backend para que funcione como proyecto Node.js.
 ### Comando
 
 ```powershell
-cd D:\Downloads\camacho\2026B\programacionV\studentFlow_back
+Set-Location .\studentFlow_back
 npm init -y
 ```
 
@@ -80,7 +80,7 @@ significa que `npm` acepta automáticamente la configuración inicial sin hacer 
 
 Después de ejecutarlo, Node.js crea:
 
-- [package.json](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/package.json)
+- [package.json](../studentFlow_back/package.json)
 
 Ese archivo convierte la carpeta en un proyecto Node.js formal.
 
@@ -131,7 +131,7 @@ Sin esta inicialización no se podrían manejar correctamente:
 
 Se debe crear o ajustar el archivo:
 
-- [package.json](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/package.json)
+- [package.json](../studentFlow_back/package.json)
 
 para describir formalmente el proyecto.
 
@@ -412,7 +412,7 @@ Se debe definir qué variables externas necesita el proyecto para correr.
 ### Acciones concretas
 
 1. Crear un archivo de ejemplo:
-   - [`.env.example`](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/.env.example)
+   - [`.env.example`](../studentFlow_back/.env.example)
 2. Definir variables mínimas como:
    - `PORT`
    - `DB_HOST`
@@ -453,7 +453,7 @@ Se debe crear el módulo que centraliza la conexión del backend con MySQL.
 
 Archivo relacionado:
 
-- [database.js](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/src/config/database.js)
+- [database.js](../studentFlow_back/src/config/database.js)
 
 ### Acciones concretas
 

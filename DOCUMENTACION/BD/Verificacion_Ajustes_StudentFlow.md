@@ -1,6 +1,6 @@
 # Verificacion de ajustes de StudentFlow
 
-Este documento explica el uso del script [`04_verificacion_ajustes_studentflow.sql`](/D:/Downloads/camacho/2026B/programacionV/docs/BD/04_verificacion_ajustes_studentflow.sql).
+Este documento explica el uso del script [`04_verificacion_ajustes_studentflow.sql`](./04_verificacion_ajustes_studentflow.sql).
 
 ## Proposito
 
@@ -12,7 +12,7 @@ No modifica datos ni estructura. Solo ejecuta consultas de inspeccion y validaci
 
 Usalo despues de ejecutar:
 
-- [`03_studentflow_ajustes_consistencia.sql`](/D:/Downloads/camacho/2026B/programacionV/docs/BD/03_studentflow_ajustes_consistencia.sql)
+- [`03_studentflow_ajustes_consistencia.sql`](./03_studentflow_ajustes_consistencia.sql)
 
 Tambien sirve cuando quieras revisar de nuevo si la base sigue consistente despues de cambios manuales en phpMyAdmin o despues de nuevas pruebas.
 
@@ -86,7 +86,7 @@ Lo esperado es que los tres valores sean `0`.
 
 1. Abrir phpMyAdmin.
 2. Ir a la pestaña `SQL`.
-3. Pegar el contenido de [`04_verificacion_ajustes_studentflow.sql`](/D:/Downloads/camacho/2026B/programacionV/docs/BD/04_verificacion_ajustes_studentflow.sql).
+3. Pegar el contenido de [`04_verificacion_ajustes_studentflow.sql`](./04_verificacion_ajustes_studentflow.sql).
 4. Ejecutarlo completo.
 
 El script ya usa nombres calificados como `studentflow.tabla`, por lo que no depende de tener `studentflow` como base activa en phpMyAdmin.

@@ -5,13 +5,13 @@ Este documento explica, con enfoque pedagógico, varios archivos base del backen
 Incluye:
 
 1. la función `sendSuccess`;
-2. cada línea de [health.routes.js](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/src/routes/health.routes.js);
+2. cada línea de [health.routes.js](../studentFlow_back/src/routes/health.routes.js);
 3. cada función de estos archivos:
-   - [error.middleware.js](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/src/middlewares/error.middleware.js)
-   - [request-context.middleware.js](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/src/middlewares/request-context.middleware.js)
-   - [health.controller.js](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/src/controllers/health.controller.js)
-   - [database.js](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/src/config/database.js)
-   - [api-response.js](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/src/utils/api-response.js)
+   - [error.middleware.js](../studentFlow_back/src/middlewares/error.middleware.js)
+   - [request-context.middleware.js](../studentFlow_back/src/middlewares/request-context.middleware.js)
+   - [health.controller.js](../studentFlow_back/src/controllers/health.controller.js)
+   - [database.js](../studentFlow_back/src/config/database.js)
+   - [api-response.js](../studentFlow_back/src/utils/api-response.js)
 
 ---
 
@@ -19,7 +19,7 @@ Incluye:
 
 Archivo relacionado:
 
-- [api-response.js](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/src/utils/api-response.js)
+- [api-response.js](../studentFlow_back/src/utils/api-response.js)
 
 Función:
 
@@ -101,7 +101,7 @@ return sendSuccess(response, materias, 200, meta);
 
 Archivo:
 
-- [health.routes.js](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/src/routes/health.routes.js)
+- [health.routes.js](../studentFlow_back/src/routes/health.routes.js)
 
 Código:
 
@@ -195,7 +195,7 @@ Sin esta línea, el archivo existiría, pero no podría integrarse en la aplicac
 
 Archivo:
 
-- [error.middleware.js](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/src/middlewares/error.middleware.js)
+- [error.middleware.js](../studentFlow_back/src/middlewares/error.middleware.js)
 
 ### `notFoundHandler`
 
@@ -275,7 +275,7 @@ Sirve para que todos los errores del backend salgan con estructura uniforme.
 
 Archivo:
 
-- [request-context.middleware.js](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/src/middlewares/request-context.middleware.js)
+- [request-context.middleware.js](../studentFlow_back/src/middlewares/request-context.middleware.js)
 
 ### `attachTemporaryUser`
 
@@ -313,7 +313,7 @@ Gracias a esto, otros módulos pueden trabajar como si la petición ya tuviera u
 
 Archivo:
 
-- [health.controller.js](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/src/controllers/health.controller.js)
+- [health.controller.js](../studentFlow_back/src/controllers/health.controller.js)
 
 ### `getHealth`
 
@@ -371,7 +371,7 @@ Sirve para comprobar rápidamente si:
 
 Archivo:
 
-- [database.js](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/src/config/database.js)
+- [database.js](../studentFlow_back/src/config/database.js)
 
 ### `pool`
 
@@ -447,7 +447,7 @@ Sirve como prueba rápida de conectividad, especialmente útil para el endpoint 
 
 Archivo:
 
-- [api-response.js](/D:/Downloads/camacho/2026B/programacionV/studentFlow_back/src/utils/api-response.js)
+- [api-response.js](../studentFlow_back/src/utils/api-response.js)
 
 ### `sendSuccess`
 
