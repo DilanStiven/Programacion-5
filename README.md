@@ -46,6 +46,7 @@ Repositorio de trabajo del proyecto de clase StudentFlow. Actualmente incluye el
 - Backend Node.js con Express y MySQL, organizado en rutas, controladores, servicios, repositorios, validadores y middlewares.
 - Endpoint de salud disponible en `/api/v1/health`.
 - Operaciones para listar, consultar, crear, reemplazar, actualizar y eliminar materias bajo `/api/v1/materias`.
+- CRUD de recordatorios bajo `/api/v1/recordatorios`; las consultas incluyen la tarea y la materia relacionadas, y las escrituras afectan únicamente a `recordatorio`.
 - Listado de materias con filtros y paginación; consultas de tareas y eventos por materia.
 - Validación de entradas y manejo centralizado de errores.
 - La asignación de usuario todavía usa un middleware temporal que establece el ID `1`; falta integrar autenticación real.
@@ -55,7 +56,9 @@ Repositorio de trabajo del proyecto de clase StudentFlow. Actualmente incluye el
 - Esquema relacional MySQL y datos iniciales preparados.
 - Scripts para aplicar ajustes de consistencia y revisar constraints y relaciones.
 - Guías de configuración, arquitectura y endpoints reunidas en `Guias/`.
-- El PRD documenta los requisitos del frontend; esta estructura contiene actualmente el backend y los materiales del proyecto.
+- El frontend de ejemplo está en `studentFlow_front/` y permite probar el CRUD de recordatorios desde el navegador.
+
+La [documentación del CRUD de recordatorios](DOCUMENTACION/Archivos/END%20POINTS/CRUD_Recordatorios.md) describe sus rutas, campos y límites de escritura.
 
 ## Endpoints de materias (`/api/v1/materias`)
 

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudentFlow · Recordatorios</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/llamados-completos.css">
+    <script type="module" src="./js/pages/recordatorios.js"></script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">StudentFlow / Entrega de clase</p>
+        <h1>Recordatorios</h1>
+        <p>Consulta y administra los recordatorios asociados a tus tareas. Las tareas y materias se consultan para mostrar su contexto; esta aplicación solo escribe en la tabla de recordatorios.</p>
+      </header>
+
+      <nav class="navegacion" aria-label="Operaciones de recordatorios">
+        <a href="#listar">Listar</a>
+        <a href="#consultar">Consultar uno</a>
+        <a href="#crear">Crear</a>
+        <a href="#reemplazar">Reemplazar</a>
+        <a href="#actualizar">Actualizar campos</a>
+        <a href="#eliminar">Eliminar</a>
+        <a href="/api/v1/health">Estado del servicio</a>
+      </nav>
+
+      <section id="listar" class="panel" aria-labelledby="listar-titulo">
+        <h2 id="listar-titulo">Mis recordatorios</h2>
+        <form id="listar-form" class="filtros">
+          <div>
+            <label for="filtro-search">Buscar</label>
+            <input id="filtro-search" name="search" type="search" placeholder="Mensaje, tarea o materia">
+          </div>
+          <div>
+            <label for="filtro-leido">Estado</label>
+            <select id="filtro-leido" name="leido">
+              <option value="">Todos</option>
+              <option value="false">No leídos</option>
+              <option value="true">Leídos</option>
+            </select>
+          </div>
+          <div>
+            <label for="filtro-canal">Canal</label>
+            <select id="filtro-canal" name="canal">
+              <option value="">Todos</option>
+              <option value="in_app">Aplicación</option>
+              <option value="email">Correo</option>
+            </select>
+          </div>
+          <div>
+            <label for="filtro-tarea">ID de tarea (opcional)</label>
+            <input id="filtro-tarea" name="tareaId" type="number" min="1" step="1">
+          </div>
+          <div class="actions">
+            <button type="submit">Aplicar filtros</button>
+            <button id="recargar" type="button" class="secondary">Actualizar listado</button>
+          </div>
+        </form>
+        <p id="listado-estado" role="status" aria-live="polite">Cargando recordatorios…</p>
+        <p id="paginacion" class="muted"></p>
+        <div class="tabla-contenedor" tabindex="0" role="region" aria-label="Tabla de recordatorios">
+          <table>
+            <caption>Recordatorios y datos de su tarea relacionada</caption>
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Mensaje</th>
+                <th scope="col">Tarea</th>
+                <th scope="col">Materia</th>
+                <th scope="col">Fecha y hora</th>
+                <th scope="col">Canal</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Acción</th>
+              </tr>
+            </thead>
+            <tbody id="recordatorios-body"></tbody>
+          </table>
+        </div>
+        <div class="actions">
+          <button id="pagina-anterior" type="button" class="secondary">Anterior</button>
+          <button id="pagina-siguiente" type="button" class="secondary">Siguiente</button>
+        </div>
+      </section>
+
+      <div class="workspace operaciones">
+        <section id="consultar" class="panel" aria-labelledby="consultar-titulo">
+          <h2 id="consultar-titulo">Consultar un recordatorio</h2>
+          <p><code>GET /api/v1/recordatorios/:id</code></p>
+          <form id="consultar-form">
+            <label for="consultar-id">ID de recordatorio</label>
+            <input id="consultar-id" name="id" type="number" min="1" step="1" required>
+            <div class="actions"><button type="submit">Consultar</button></div>
+          </form>
+          <p id="consultar-estado" role="status" aria-live="polite">Elige un ID de la lista.</p>
+          <pre id="consultar-resultado">Aquí aparecerá el recordatorio.</pre>
+        </section>
+
+        <section id="crear" class="panel" aria-labelledby="crear-titulo">
+          <h2 id="crear-titulo">Crear recordatorio</h2>
+          <p><code>POST /api/v1/recordatorios</code></p>
+          <form id="crear-form">
+            <label for="crear-tarea">ID de tarea existente</label>
+            <input id="crear-tarea" name="idTarea" type="number" min="1" step="1" required>
+            <label for="crear-mensaje">Mensaje</label>
+            <input id="crear-mensaje" name="mensaje" type="text" maxlength="255" required>
+            <label for="crear-fecha">Fecha y hora</label>
+            <input id="crear-fecha" name="fechaHora" type="datetime-local" required>
+            <label for="crear-canal">Canal</label>
+            <select id="crear-canal" name="canal">
+              <option value="in_app">Aplicación</option>
+              <option value="email">Correo</option>
+            </select>
+            <label class="seleccion-campo"><input name="leido" type="checkbox"> Marcar como leído</label>
+            <div class="actions"><button type="submit">Crear recordatorio</button></div>
+          </form>
+          <p id="crear-estado" role="status" aria-live="polite">La tarea debe pertenecer al usuario actual.</p>
+        </section>
+
+        <section id="reemplazar" class="panel" aria-labelledby="reemplazar-titulo">
+          <h2 id="reemplazar-titulo">Reemplazar recordatorio</h2>
+          <p><code>PUT /api/v1/recordatorios/:id</code></p>
+          <form id="reemplazar-form">
+            <label for="reemplazar-id">ID de recordatorio</label>
+            <input id="reemplazar-id" name="id" type="number" min="1" step="1" required>
+            <label for="reemplazar-tarea">ID de tarea</label>
+            <input id="reemplazar-tarea" name="idTarea" type="number" min="1" step="1" required>
+            <label for="reemplazar-mensaje">Mensaje</label>
+            <input id="reemplazar-mensaje" name="mensaje" type="text" maxlength="255" required>
+            <label for="reemplazar-fecha">Fecha y hora</label>
+            <input id="reemplazar-fecha" name="fechaHora" type="datetime-local" required>
+            <label for="reemplazar-canal">Canal</label>
+            <select id="reemplazar-canal" name="canal">
+              <option value="in_app">Aplicación</option>
+              <option value="email">Correo</option>
+            </select>
+            <label class="seleccion-campo"><input name="leido" type="checkbox"> Marcar como leído</label>
+            <div class="actions"><button type="submit">Reemplazar recordatorio</button></div>
+          </form>
+          <p id="reemplazar-estado" role="status" aria-live="polite">Envía todos los campos para reemplazar el registro.</p>
+        </section>
+
+        <section id="actualizar" class="panel" aria-labelledby="actualizar-titulo">
+          <h2 id="actualizar-titulo">Actualizar campos</h2>
+          <p><code>PATCH /api/v1/recordatorios/:id</code></p>
+          <form id="actualizar-form">
+            <label for="actualizar-id">ID de recordatorio</label>
+            <input id="actualizar-id" name="id" type="number" min="1" step="1" required>
+            <label for="actualizar-tarea">ID de tarea (opcional)</label>
+            <input id="actualizar-tarea" name="idTarea" type="number" min="1" step="1">
+            <label for="actualizar-mensaje">Mensaje (opcional)</label>
+            <input id="actualizar-mensaje" name="mensaje" type="text" maxlength="255">
+            <label for="actualizar-fecha">Fecha y hora (opcional)</label>
+            <input id="actualizar-fecha" name="fechaHora" type="datetime-local">
+            <label for="actualizar-canal">Canal (opcional)</label>
+            <select id="actualizar-canal" name="canal">
+              <option value="">Sin cambios</option>
+              <option value="in_app">Aplicación</option>
+              <option value="email">Correo</option>
+            </select>
+            <label for="actualizar-leido">Leído (opcional)</label>
+            <select id="actualizar-leido" name="leido">
+              <option value="">Sin cambios</option>
+              <option value="true">Sí</option>
+              <option value="false">No</option>
+            </select>
+            <div class="actions"><button type="submit">Aplicar cambios</button></div>
+          </form>
+          <p id="actualizar-estado" role="status" aria-live="polite">Completa únicamente los campos que deseas modificar.</p>
+        </section>
+
+        <section id="eliminar" class="panel" aria-labelledby="eliminar-titulo">
+          <h2 id="eliminar-titulo">Eliminar recordatorio</h2>
+          <p><code>DELETE /api/v1/recordatorios/:id</code></p>
+          <form id="eliminar-form">
+            <label for="eliminar-id">ID de recordatorio</label>
+            <input id="eliminar-id" name="id" type="number" min="1" step="1" required>
+            <div class="actions"><button type="submit" class="danger">Eliminar recordatorio</button></div>
+          </form>
+          <p id="eliminar-estado" role="status" aria-live="polite">Solo se elimina el registro de recordatorio.</p>
+        </section>
+      </div>
+
+      <footer>
+        El usuario de esta versión de clase es el usuario temporal 1 del backend. Los IDs de tarea se pueden consultar en la base de datos o en el listado de tareas de una materia.
+      </footer>
+    </main>
+  </body>
+</html>
