@@ -1,4 +1,18 @@
-# StudentFlow - Programación
+﻿# Programacion 5
+
+Repositorio con varios proyectos independientes de clase. Cada proyecto se conserva en su propia carpeta y tiene sus instrucciones de ejecución.
+
+| Proyecto | Carpeta | Descripción |
+|---|---|---|
+| StudentFlow | `studentFlow_back/`, `studentFlow_front/`, `DOCUMENTACION/`, `Proyectos/` | Aplicación de seguimiento estudiantil y materiales relacionados. |
+| Clase 10 | `Clase 10/` | Aplicación de gestión de proyectos, clientes, oficinas y ciudades. |
+| Laboratorio de ventas | `tareaVentas/` | Dashboard de ventas con backend Node.js y base MySQL/MariaDB. |
+
+Para ejecutar cada aplicación, consulta el README incluido en su carpeta. No subas archivos `.env` ni `node_modules`; el repositorio los excluye.
+
+---
+
+## Documentación de StudentFlow
 
 Repositorio de trabajo del proyecto de clase StudentFlow. Actualmente incluye el backend, los archivos de diseño de la base de datos, guías de trabajo y materiales del curso.
 
@@ -85,3 +99,4 @@ npm run dev
 ```
 
 Configura las variables de conexión a MySQL en `.env` antes de iniciar el servidor. No compartas ni subas ese archivo; usa `.env.example` como plantilla.
+

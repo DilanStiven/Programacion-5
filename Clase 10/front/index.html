@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f3f6f5">
+    <meta name="description" content="Panel local para administrar ciudades, clientes, oficinas y proyectos.">
+    <title>Panel de proyectos</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <a class="brand" href="/" aria-label="Panel de proyectos, inicio">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M5 10.5 16 5l11 5.5v11L16 27 5 21.5v-11Z" stroke="currentColor" stroke-width="1.8"/>
+              <path d="m5.5 10.8 10.5 5.4 10.5-5.4M16 16.4V27M10.5 8l11 5.6" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <strong>Proyectos</strong>
+            <span>Panel de datos</span>
+          </span>
+        </a>
+
+        <div class="nav-caption">Espacio de trabajo</div>
+        <nav class="main-nav" aria-label="Secciones de la base de datos">
+          <button class="nav-link is-active" type="button" data-section="ciudades" aria-current="page">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20h16M6.5 20V9.5L12 5l5.5 4.5V20M9.5 20v-6h5v6M9 10.5h.01M15 10.5h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Ciudades</span><span class="nav-count" data-count="ciudades">—</span>
+          </button>
+          <button class="nav-link" type="button" data-section="clientes">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 20v-1.6a3.4 3.4 0 0 0-3.4-3.4H7.4A3.4 3.4 0 0 0 4 18.4V20m6-8a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm6-7.7a4 4 0 0 1 0 7.4m1 3.1h1.6a3.4 3.4 0 0 1 3.4 3.4V20" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            <span>Clientes</span><span class="nav-count" data-count="clientes">—</span>
+          </button>
+          <button class="nav-link" type="button" data-section="oficinas">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20h16M6 20V5h12v15M9 8h2m2 0h2m-6 4h2m2 0h2m-6 4h2m2 0h2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Oficinas</span><span class="nav-count" data-count="oficinas">—</span>
+          </button>
+          <button class="nav-link" type="button" data-section="proyectos">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7.5h6l2 2h8v9H4v-11Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M4.5 11h15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            <span>Proyectos</span><span class="nav-count" data-count="proyectos">—</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="connection-indicator">
+            <span class="connection-dot" id="connection-dot"></span>
+            <span id="connection-label">Conectando con la base</span>
+          </div>
+          <span class="sidebar-footnote">Base de datos local · MySQL</span>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <button class="icon-button mobile-menu" id="menu-toggle" type="button" aria-label="Mostrar navegación" aria-expanded="false" aria-controls="sidebar">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </button>
+          <div class="breadcrumb"><span>Base de datos</span><span class="breadcrumb-separator">/</span><strong id="breadcrumb-current">Ciudades</strong></div>
+          <div class="topbar-end"><span class="local-badge"><span></span> Entorno local</span></div>
+        </header>
+
+        <div class="page-content">
+          <section class="welcome-row" aria-labelledby="page-title">
+            <div>
+              <h1 id="page-title">Ciudades</h1>
+              <p id="page-description">Consulta y administra las ciudades registradas en tu base de datos.</p>
+            </div>
+            <button class="button button-primary" id="create-button" type="button">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+              <span id="create-button-label">Nueva ciudad</span>
+            </button>
+          </section>
+
+          <section class="overview" aria-label="Resumen de registros">
+            <div class="overview-item overview-total">
+              <span class="overview-label">Registros en esta sección</span>
+              <strong id="section-total">—</strong>
+              <span class="overview-note" id="section-total-note">Cargando datos</span>
+            </div>
+            <div class="overview-divider" aria-hidden="true"></div>
+            <div class="overview-item">
+              <span class="overview-label">Ciudades</span>
+              <strong data-overview-count="ciudades">—</strong>
+            </div>
+            <div class="overview-item">
+              <span class="overview-label">Clientes</span>
+              <strong data-overview-count="clientes">—</strong>
+            </div>
+            <div class="overview-item">
+              <span class="overview-label">Oficinas</span>
+              <strong data-overview-count="oficinas">—</strong>
+            </div>
+            <div class="overview-item">
+              <span class="overview-label">Proyectos</span>
+              <strong data-overview-count="proyectos">—</strong>
+            </div>
+          </section>
+
+          <section class="data-panel" aria-labelledby="table-heading">
+            <div class="panel-heading">
+              <div>
+                <h2 id="table-heading">Todos los registros</h2>
+                <p id="table-caption">Revisa, filtra o actualiza la información.</p>
+              </div>
+              <label class="sort-control">
+                <span>Ordenar por</span>
+                <select id="sort-select" aria-label="Ordenar registros"></select>
+              </label>
+            </div>
+
+            <div class="toolbar">
+              <label class="search-field">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                <input id="search-input" type="search" placeholder="Buscar en esta sección..." autocomplete="off">
+                <span class="shortcut-hint">Buscar</span>
+              </label>
+              <button class="button button-quiet" id="refresh-button" type="button">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4.7 9a7.5 7.5 0 0 1 12.6-2L20 12M4 17v-5h5m10.3 3a7.5 7.5 0 0 1-12.6 2L4 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Actualizar
+              </button>
+            </div>
+
+            <div class="table-wrap" id="table-wrap">
+              <table>
+                <thead id="table-head"></thead>
+                <tbody id="table-body"></tbody>
+              </table>
+              <div class="table-state" id="table-state" hidden></div>
+            </div>
+
+            <footer class="table-footer">
+              <span id="range-label">Cargando registros…</span>
+              <div class="pagination" aria-label="Paginación">
+                <button class="page-button" id="previous-page" type="button" aria-label="Página anterior">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m14.5 5-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <span id="page-label">Página 1 de 1</span>
+                <button class="page-button" id="next-page" type="button" aria-label="Página siguiente">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9.5 5 7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+            </footer>
+          </section>
+
+          <p class="page-footnote">Los cambios se guardan directamente en la base de datos local.</p>
+        </div>
+      </main>
+    </div>
+
+    <dialog class="record-dialog" id="record-dialog" aria-labelledby="dialog-title">
+      <form class="record-form" id="record-form">
+        <div class="dialog-heading">
+          <div>
+            <h2 id="dialog-title">Nuevo registro</h2>
+            <p id="dialog-description">Completa los datos para guardar el registro.</p>
+          </div>
+          <button class="icon-button dialog-close" id="dialog-close" type="button" aria-label="Cerrar formulario">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <div class="form-fields" id="form-fields"></div>
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+        <div class="dialog-actions">
+          <button class="button button-quiet" id="cancel-button" type="button">Cancelar</button>
+          <button class="button button-primary" id="save-button" type="submit">Guardar registro</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>
